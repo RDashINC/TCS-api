@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  h1= title
+  h2 (C) 2014 RDashINC
+  p You must provide a request. This is the only plain text response you will get, you have been warned...
+  br
+  h3 Basic API Usage
+  <ul>
+  li <u>/cases</u> - <b>JC Case API</b>
+  <ul>
+  li GET <u>/get</u> - <b>Get a case by ID.</b>
+  li GET <u>/del</u> - <b>Delete a case by ID.</b>
+  li POST <u>/new</u> - <b>Create a new case.</b>
+  li POST <u>/update</u> - <b>Update a case by ID.</b>
+  </ul>
+  <br>
+  li <u>/sign</u> - <b>Sign-in Sheet API</b>
+  <ul>
+  li GET <u>/here</u> - <b>Set ID, Here.</b>
+  li GET <u>/leave</u> - <b>Set ID, not Here</b>
+  li GET <u>/status</u> - <b>Status/Obj of ID</b>
+  li GET <u>/del</u> - <b>Del Student by ID.</b>
+  li POST <u>/register</u> - <b>Add Student, and /auth abilities.</b>
+  </ul>
+  li <u>/server</u> - <b>Server API</b>
+  <ul>
+  li GET <u>/restart</u> - <b>Restart the API server</b>
+  li GET <u>/shutdown</u> - <b>Stop the API server</b>
+  li GET <u>/version</u> - <b>Get API Version</b>
+  </ul>
+  li <u>/auth</u> - <b>Auth API</b>
+  <ul>
+  li GET <u>/new</u> - <b>Gen session from Username and Password</b>
+  li GET <u>/destroy</u> - <b>Destroy Session</b>
+  li GET <u>/admin</u> - <b>Set Admin status</b>
+  li GET <u>/unadmin</u> - <b>Remove Admin status</b>
+  </ul>
+  </ul>
