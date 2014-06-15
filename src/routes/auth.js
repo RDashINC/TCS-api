@@ -74,22 +74,23 @@ router.post('/new', function(req, res) {
       res.status(500);
       res.send("{\"error\":\"Failed to create session. [3]\"}");
     } else {
+      if(typeof(result[0])==='undefined') {
+        res.status(200);
+        res.send("{\"error\":\"Username or password is invalid\"}");
+      } else {
+        // Gen the Session ID.
+        var session_id = getRandomString(64, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-      // Send back result obj, for debugging
-      res.send(result);
+        // Make session valid
+        var error = fs.writeFileSync("sessions/"+session_id+".sid", "{\"username\":\""+result[0].username+"\", \"created\":\""+getMysqlTimeNow()+"\", \"admin\":"+result[0].admin+", \"api_calls\":0}", { encoding: "utf8" });
+        if(error) {
+          res.status(500);
+          res.send("{\"error\":\"Failed to create session. [1]\"}");
+        }
 
-      // Gen the Session ID.
-      var session_id = getRandomString(64, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-
-      // Make session valid
-      var error = fs.writeFileSync("sessions/"+session_id+".sid", "{\"username\":\""+result[0].username+"\", \"created\":\""+getMysqlTimeNow()+"\", \"admin\":"+result[0].admin+", \"api_calls\":0}", { encoding: "utf8" });
-      if(error) {
-        res.status(500);
-        res.send("{\"error\":\"Failed to create session. [1]\"}");
+        // Send ID.
+        res.send("{\"session\":\""+session_id+"\"}");
       }
-
-      // Send ID.
-      res.send("{\"session\":\""+session_id+"\"}");
     }
   });
 });

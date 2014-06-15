@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 router.use(function(req, res, next) {
 	res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -61,6 +62,11 @@ router.get('/restart', function(req, res) {
 router.get('/version', function(req, res) {
   res.send("{\"version\":\""+global.pver+"\"}");
 });
+
+router.get('/news', function(req, res) {
+  res.send(fs.readFileSync('news.json'));
+});
+
 
 
 module.exports = router;
